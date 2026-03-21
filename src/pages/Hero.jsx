@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
+import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Terminal, Database, Server, ChevronRight, Briefcase, Code, GraduationCap, TrendingUp, Activity, MonitorSmartphone, LayoutDashboard } from 'lucide-react';
 
