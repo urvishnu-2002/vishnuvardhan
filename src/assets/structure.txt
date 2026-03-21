@@ -1,0 +1,26 @@
+vv-portfolio/
+├── public/
+│   └── assets/
+│       ├── resume.pdf          <-- Your Novoresume export
+│       └── images/             <-- Project screenshots
+├── src/
+│   ├── assets/
+│   │   └── logo-vv.png         <-- Your custom logo
+│   ├── components/             <-- Reusable UI pieces
+│   │   ├── Navbar.jsx          <-- Logo "VV" and Menu stays here
+│   │   ├── Footer.jsx
+│   │   ├── ProjectCard.jsx     <-- Dynamic card for each project
+│   │   └── SkillBadge.jsx      <-- Small badges for Python, SQL, etc.
+│   ├── data/
+│   │   └── projects.js         <-- All your resume projects data here
+│   ├── pages/                  <-- Main page sections
+│   │   ├── Hero.jsx            <-- Intro: "CS Graduate | Amazon ROC"
+│   │   ├── About.jsx           <-- Education & Experience details
+│   │   ├── Projects.jsx        <-- Map through your project list
+│   │   ├── Experience.jsx      <-- Timeline of Amazon ROC work
+│   │   └── Contact.jsx
+│   ├── App.jsx                 <-- Main file connecting all pages
+│   ├── main.jsx                <-- Entry point
+│   └── index.css               <-- Tailwind or Global CSS
+├── tailwind.config.js          <-- Best for styling
+└── package.json
