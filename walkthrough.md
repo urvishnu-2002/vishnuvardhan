@@ -21,6 +21,7 @@ The portfolio has been successfully transitioned from the previous iOS aesthetic
 ### 4. Interactive 3D Tilt Cards & Modals
 - Integrated native `preserve-3d` interaction values computing absolute mouse positioning (via `useMotionValue` mapping) causing the Project cards to track the user cursor dynamically.
 - Developed beautiful interactive pop-up Modals for "ShopSphere" and "Fake Statement Detector", isolating Technical Challenges and specifically Engineered Solutions.
+- **Project Case Study Visuals:** Injected high-resolution screenshots for **ShopSphere**, **SmartXML**, and **HPE IT Solutions** into their respective modals, providing immediate visual context for the architectural case studies.
 
 ### 5. CSS Bento Grids & Infinite Marquees
 - Programmed a deeply asymmetrical CSS `grid` bounding structure displaying operational history and technical skills comprehensively. 

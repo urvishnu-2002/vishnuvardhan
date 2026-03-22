@@ -1,32 +1,21 @@
-# Portfolio Transformation: "Cyber-Professional"
+# Integrate Project Images into Showcase
 
-## Goal Description
-Transform the portfolio into an expert-level, high-conversion showcase featuring a "Cyber-Professional" aesthetic (slate and emerald accents) integrating PRIYANSH TECHNOLOGIES IT Engineering experience and Amazon ROC operational metrics. 
+Add visual context to the project deep-dives by including screenshots for ShopSphere, SmartXML, and HPE IT Solutions.
 
-## Landing Page Structure Outline
-1. **Hero Section (High-impact Entry)**
-   - **Visuals:** Dark Slate background (`#0f172a`) with glowing Emerald orbs (`#10b981`) using high-blur glassmorphism.
-   - **Content:** Emphasize "Full-stack Web Developer" replacing the previous title setup, highlighting high-traffic Django apps. Staggered, smooth-revealing typography via Framer Motion. 
-   - **Call-to-action:** "Download Resume" button housing an intricate micro-interaction click state.
-   - **Progress:** A sleek Emerald Reading Progress bar anchored exactly to the top edge mapping global `scrollY`.
+## Proposed Changes
 
-2. **Work Experience (Vertical Animated Timeline)**
-   - Left side: A glowing emerald connector line tracing the user's scroll.
-   - **Priyansh Technologies:** Highlighting REST API Integration and XML-to-web mapping prominently.
-   - **Amazon ROC:** Specifically designed "Data Dashboard" simulated UI component showing dynamic KPI tracking cards (AHT, SLA, TAT) and the Empty Mile Reduction project logic.
+### Projects Component
+#### [MODIFY] [Projects.jsx](file:///c:/Users/imvis/Desktop/React%20Projects/portfolio/src/pages/Projects.jsx)
+- Update `projectsData` to include an `image` property for the following projects:
+    - **ShopSphere**: `/assets/images/shopsphere.png`
+    - **SmartXML Solutions**: `/assets/images/smartxml.png`
+    - **HPE IT Solutions**: `/assets/images/hpeitsolutions.png`
+- In the `Projects` component modal (within `AnimatePresence`), insert a `motion.div` containing the project image if available.
+- Style the image container with a themed border, rounded corners, and a subtle glow.
 
-3. **Projects (Interactive Cards)**
-   - Featuring **ShopSphere** and **SmartXML**. Both use an advanced 3D hover tilt (`group-hover` rotation manipulation) to pop off the screen.
-   - Interactive modals attached to deep-dive "Technical Challenges" and "Solutions" dynamically.
+## Verification Plan
 
-4. **Skills & Education (Modern Bento Grid)**
-   - A modern, asymmetrical CSS `grid` layout displaying skills like blocks. 
-   - Top skills like Python, SQL, and Django will feature endless pulse glow keyframes to immediately capture attention.
-
-5. **Certifications (Seamless Auto-Scrolling Marquee)**
-   - A continuously looping horizontal banner displaying Deloitte, Udemy, and LinkedIn achievements effortlessly across the screen.
-
-## Proposed Tailoring
-- Rewrite `src/index.css` dropping the entire iOS Gold syntax in favor of the Slate/Emerald token map.
-- Replace simple mapping lists in `Experience.jsx` and `About.jsx` with intense grid/dashboard architectures.
-- Overhaul `Projects.jsx` to accommodate 3D transform interactions and Portal-based detailed modals.
+### Manual Verification
+1. Navigate to the **Projects** page.
+2. Click on the three projects and verify the screenshot appears in each modal.
+3. Check for responsiveness on mobile and tablet views.

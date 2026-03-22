@@ -4,13 +4,33 @@ import { Github, ExternalLink, X, Shield, Brain, Layout, ChevronRight, CheckCirc
 
 const projectsData = [
     {
+        id: "hpe",
+        title: "HPE IT Solutions",
+        category: "Corporate UI",
+        icon: MonitorIcon,
+        image: "/assets/images/hpeitsolutions.png",
+        shortDesc: "Professional service-oriented platform built utilizing strictly native components guaranteeing absolute responsiveness.",
+        tech: ["HTML5", "CSS3", "JavaScript", "UI/UX"],
+        github: "#",
+        date: "Priyansh Technologies",
+        challenges: [
+            "Translating very complex corporate business requirements into simple, functional technical front-end features.",
+            "Guaranteeing absolute 100% responsiveness and cross-browser parity across hundreds of mobile views."
+        ],
+        solutions: [
+            "Delivered comprehensive interactive service portfolios and integrated heavy service inquiry forms securely.",
+            "Meticulously structured the DOM leveraging pure HTML5 and CSS3 actively avoiding heavy third-party bloat."
+        ]
+    },
+    {
         id: "shopsphere",
         title: "ShopSphere",
         category: "E-Commerce",
         icon: Component,
+        image: "/assets/images/shopsphere.png",
         shortDesc: "High-traffic Django multi-vendor marketplace handling real-time inventory checks and complex authentications.",
         tech: ["Django", "Python", "React", "PostgreSQL", "REST API"],
-        github: "#", 
+        github: "#",
         date: "Priyansh Technologies",
         challenges: [
             "Coordinating absolute data consistency over highly concurrent vendor database read/writes.",
@@ -26,9 +46,10 @@ const projectsData = [
         title: "SmartXML Solutions",
         category: "Architecture",
         icon: FileJson,
+        image: "/assets/images/smartxml.png",
         shortDesc: "Automated XML parsing architecture securely mapping legacy unstructured supplier data to modern web clients.",
         tech: ["Python", "XML", "REST API", "Scripts"],
-        github: "#", 
+        github: "#",
         date: "Priyansh Technologies",
         challenges: [
             "Parsing entirely unpredictable XML formats dynamically extracted from legacy corporate providers.",
@@ -40,31 +61,13 @@ const projectsData = [
         ]
     },
     {
-        id: "hpe",
-        title: "HPE IT Solutions",
-        category: "Corporate UI",
-        icon: MonitorIcon,
-        shortDesc: "Professional service-oriented platform built utilizing strictly native components guaranteeing absolute responsiveness.",
-        tech: ["HTML5", "CSS3", "JavaScript", "UI/UX"],
-        github: "#", 
-        date: "Priyansh Technologies",
-        challenges: [
-            "Translating very complex corporate business requirements into simple, functional technical front-end features.",
-            "Guaranteeing absolute 100% responsiveness and cross-browser parity across hundreds of mobile views."
-        ],
-        solutions: [
-            "Delivered comprehensive interactive service portfolios and integrated heavy service inquiry forms securely.",
-            "Meticulously structured the DOM leveraging pure HTML5 and CSS3 actively avoiding heavy third-party bloat."
-        ]
-    },
-    {
         id: "medicalds",
         title: "Encrypted Medical Search",
         category: "Cybersecurity",
         icon: Shield,
         shortDesc: "A secure website architecture permitting easy and radically safe access to multi-authority medical databases.",
         tech: ["Crypto", "Security", "Web Architecture"],
-        github: "#", 
+        github: "#",
         date: "02/2024 – 05/2024",
         challenges: [
             "Ensuring absolute data privacy across completely independent medical authorities seamlessly.",
@@ -160,13 +163,13 @@ const TiltCard = ({ project, onClick }) => {
                         </div>
                         <span className="text-[10px] font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest px-2 py-1 bg-[var(--color-cyber-emerald-glow)] rounded">{project.category}</span>
                     </div>
-                    
+
                     <h3 className="text-xl sm:text-2xl font-bold text-[var(--color-cyber-text-main)] mb-1 group-hover:text-[var(--color-cyber-emerald)] transition-colors">{project.title}</h3>
                     <p className="text-[10px] sm:text-[11px] text-[var(--color-cyber-slate-400)] mb-3 font-mono">{project.date}</p>
                     <p className="text-[13px] sm:text-sm text-[var(--color-cyber-text-muted)] leading-relaxed mb-6 flex-grow">
                         {project.shortDesc}
                     </p>
-                    
+
                     <div className="flex flex-wrap gap-2 mt-auto relative z-10 min-[1024px]:pointer-events-none pointer-events-auto">
                         {project.tech.map((t, i) => (
                             <span key={i} className="px-2 py-1 text-[9px] sm:text-[10px] font-mono rounded bg-[var(--color-cyber-slate-900)] text-[var(--color-cyber-text-muted)] border border-[var(--color-cyber-slate-700)]">
@@ -176,18 +179,18 @@ const TiltCard = ({ project, onClick }) => {
                     </div>
                 </div>
             </div>
-            
+
             {/* Extremely Dynamic Interactive Glow Shadow mapping to the physical mouse constraints */}
-            <motion.div 
-                className="absolute inset-0 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none mix-blend-screen" 
-                style={{ 
+            <motion.div
+                className="absolute inset-0 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none mix-blend-screen"
+                style={{
                     transform: "translateZ(1px)",
                     boxShadow: useTransform(() => `0 0 50px rgba(16, 185, 129, 0.1), inset ${shadowPositionX.get()} ${shadowPositionY.get()} 40px rgba(16, 185, 129, 0.1)`)
                 }}
             />
             {/* Main Cyber Border Overlay */}
-            <div 
-                className="absolute inset-0 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none border border-[var(--color-cyber-emerald)]" 
+            <div
+                className="absolute inset-0 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none border border-[var(--color-cyber-emerald)]"
                 style={{ transform: "translateZ(1px)" }}
             />
         </motion.div>
@@ -199,7 +202,7 @@ const Projects = () => {
 
     return (
         <section className="min-h-screen pt-32 pb-32 px-6 md:px-12 max-w-7xl mx-auto">
-            <motion.div 
+            <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -216,7 +219,7 @@ const Projects = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style={{ perspective: "1000px" }}>
                 {projectsData.map((project, index) => (
-                    <motion.div 
+                    <motion.div
                         key={project.id}
                         initial={{ opacity: 0, y: 40 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -232,14 +235,14 @@ const Projects = () => {
             {/* Cinematic Spring Modal Portal */}
             <AnimatePresence>
                 {selectedProject && (
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[var(--color-cyber-slate-950)]/70 backdrop-blur-md min-[1024px]:cursor-none"
                         onClick={() => setSelectedProject(null)}
                     >
-                        <motion.div 
+                        <motion.div
                             initial={{ scale: 0.9, opacity: 0, y: 30 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: 30 }}
@@ -247,7 +250,7 @@ const Projects = () => {
                             className="cyber-card relative w-full max-w-3xl overflow-y-auto max-h-[90vh] shadow-[0_30px_60px_rgba(0,0,0,0.8)] border-[var(--color-cyber-emerald)] bg-[var(--color-cyber-slate-900)] overflow-x-hidden p-6 sm:p-10 pointer-events-auto"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <button 
+                            <button
                                 onClick={() => setSelectedProject(null)}
                                 className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full cyber-glass flex items-center justify-center text-[var(--color-cyber-emerald)] border border-[var(--color-cyber-emerald)] hover:bg-[var(--color-cyber-emerald)] hover:text-black transition-colors shadow-[0_0_15px_var(--color-cyber-emerald-glow)] z-50 min-[1024px]:cursor-none"
                             >
@@ -259,7 +262,23 @@ const Projects = () => {
                                     {selectedProject.category}
                                 </span>
                                 <h2 className="text-3xl sm:text-4xl font-black text-white mb-2 tracking-tight">{selectedProject.title}</h2>
-                                <p className="text-[var(--color-cyber-slate-400)] font-mono text-[12px] mb-4 uppercase tracking-widest">{selectedProject.date}</p>
+                                <p className="text-[var(--color-cyber-slate-400)] font-mono text-[12px] mb-6 uppercase tracking-widest">{selectedProject.date}</p>
+
+                                {selectedProject.image && (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        className="relative w-full aspect-video mb-8 rounded-xl overflow-hidden border border-[var(--color-cyber-slate-700)] shadow-2xl group flex items-center justify-center bg-[var(--color-cyber-slate-950)]"
+                                    >
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-cyber-slate-950)] to-transparent opacity-40 z-10"></div>
+                                        <img
+                                            src={selectedProject.image}
+                                            alt={selectedProject.title}
+                                            className="w-full h-full object-contain relative z-0 transform transition-transform duration-700 group-hover:scale-[1.02]"
+                                        />
+                                    </motion.div>
+                                )}
+
                                 <p className="text-[var(--color-cyber-text-muted)] text-[15px] sm:text-lg leading-relaxed max-w-2xl px-1 font-medium">
                                     {selectedProject.shortDesc}
                                 </p>
