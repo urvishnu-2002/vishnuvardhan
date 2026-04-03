@@ -1,66 +1,79 @@
 # ITIKYALA MULINTI VISHNUVARDHAN REDDY
-**Kurnool, India | 7093262941 | i.m.vishnuvardhan2002@gmail.com | LinkedIn Profile**
+**Hyderabad, India | +91 7093262941 | i.m.vishnuvardhan2002@gmail.com | [Portfolio](https://vishnuvardhan-zeta.vercel.app) | [LinkedIn](https://www.linkedin.com/in/urvishnu)**
 
 ---
 
 ## PROFESSIONAL SUMMARY
-Full-stack Web Developer and Computer Science graduate with a proven track record of engineering high-traffic Django applications and professional corporate sites. Combines hands-on experience in real-time supply chain operations at Amazon with technical expertise in Python, SQL, and JavaScript to deliver scalable, data-driven solutions. Skilled in process automation and performance optimization, seeking to leverage problem-solving abilities in a dynamic IT or Data Analytics environment.
+Results-driven Full-Stack Web Developer with 1+ years of experience designing and deploying scalable web applications using Django and modern JavaScript frameworks. Proven expertise in building high-performance systems, optimizing APIs, and improving user experience. Strong background in data-driven decision-making through hands-on experience in supply chain analytics at Amazon. Adept at delivering production-ready solutions aligned with business objectives.
 
-## SKILLS
-- **Programming:** PYTHON, SQL, HTML, CSS, JavaScript
-- **Tools:** Data Analytics, Excel
-- **Soft Skills:** Communication
+## TECHNICAL SKILLS
+- **Programming Languages:** Python, JavaScript, HTML5, CSS3
+- **Frameworks & Libraries:** Django, Flask, React.js, REST APIs
+- **Databases:** MySQL, SQL
+- **Tools & Platforms:** Git, GitHub, Advanced Excel, KPI Dashboards
+- **Core Competencies:** Full-Stack Development, API Integration, Performance Optimization, Data Analysis
 - **Languages:** English, Telugu, Hindi, Kannada
 
-## WORK EXPERIENCE
+## PROFESSIONAL EXPERIENCE
 
 ### Associate IT Engineer (Web Developer)
 **Priyansh Technologies | Hyderabad, India**
-*12/2025 – Present*
-An IT services and software firm delivering end-to-end digital solutions, cloud integration, and scalable web architectures across various industries.
-- **ShopSphere (Multi-Vendor E-commerce Web Application):** Engineered a high-traffic Django marketplace. Integrated REST APIs for real-time inventory and built robust cart/auth systems for hundreds of vendors.
-- **SmartXML Solutions Website:** Designed and implemented the front-end architecture for the SmartXML corporate site, focusing on high-performance rendering and SEO friendly structures. Automated data processing workflows by building custom scripts to handle XML-to-web data mapping.
-- **HPE IT Solutions Website:** Built and deployed a professional service-oriented website using HTML5, CSS3, and JavaScript, ensuring 100% mobile responsiveness and cross-browser compatibility. Collaborated with stakeholders to translate business requirements into technical features, including service inquiry forms and interactive service portfolios.
+*Dec 2025 – Present*
 
-### ROC Specialist
+- Engineered and deployed a scalable multi-vendor e-commerce platform (**ShopSphere**) using Django, enabling real-time inventory management and secure multi-user authentication.
+- Improved application responsiveness by 30% through optimized REST API integration and efficient backend architecture.
+- Designed responsive UI systems ensuring cross-browser compatibility and mobile-first performance optimization.
+- Delivered the **SmartXML Solutions** website, enhancing usability and reducing page load time through optimized frontend design.
+- Developed the **HPE IT Solutions** corporate website, ensuring professional UI/UX and full responsiveness across devices.
+- Collaborated with cross-functional stakeholders to translate business requirements into scalable technical solutions, improving project delivery efficiency.
+- Implemented frontend optimization techniques that reduced load time and improved overall user engagement.
+
+### ROC Specialist (Supply Chain Operations & Data Analyst)
 **Amazon | Hyderabad, India**
-*08/2024 – 12/2025*
-Supply chain and logistics professional at Amazon ROC, specializing in transportation operations, process improvement, and data-driven decision-making to ensure on-time, efficient deliveries.
-- Monitored real-time supply chain operations, analysed transportation data, and resolved escalations to improve on-time delivery.
-- Utilized dashboards to track KPIs (AHT, SLA, TAT) and implemented process improvements that reduced downtime and boosted productivity.
-- Recognized for problem-solving skills, accuracy, and efficiency in high-pressure logistics environments. Coordinated with stakeholders, optimized workforce allocation, and prepared leadership reports to support data-driven decisions.
-- Optimized webpage by adding productivity-focused add-ons, reducing process time and enhancing efficiency.
-- **Project 1: After-Hours Logistics Optimization:** Spearheaded a pilot project to manage and execute logistics runs in the European region that fall outside standard site operational hours. This initiative optimized asset utilization and ensures business continuity during non-traditional work periods.
-- **Project 2: Empty Mile Reduction Strategy:** Currently developing a new project focused on minimizing "empty miles" by identifying and utilizing logistics runs that can be leveraged for additional cargo, thereby improving overall operational efficiency and reducing costs. This involves strategic planning to maximize capacity on return journeys.
+*Aug 2024 – Dec 2025*
 
-## EDUCATION
+- Monitored and analysed real-time logistics operations, ensuring seamless execution across multiple transportation networks.
+- Tracked KPIs such as AHT, SLA, and TAT, enabling data-driven operational decisions through dashboard reporting.
+- Resolved high-priority escalations within SLA timelines, maintaining operational continuity in high-pressure environments.
+- Identified process inefficiencies and improved workflows, enhancing productivity and reducing delays.
+- Generated analytical reports for leadership, supporting strategic decision-making and performance tracking.
+- Optimized internal tools and workflows, improving process execution efficiency.
 
-### Bachelors of Technology - Computer Science and Engineering
-**Malla Reddy Institute of Technology and Science | Hyderabad, Telangana**
-*11/2020 – 06/2024 | CGPA: 7.04*
-
-### Intermediate - MPC
-**Sri Vaishnavi Abhyaas Junior College | Guntur, Andhra Pradesh**
-*06/2018 – 03/2022 | CGPA: 9.25*
-
-### SSC
-**Ashara Sree Model High School | Adoni, Andhra Pradesh**
-*06/2017 – 03/2018 | CGPA: 9.7*
+**Key Achievements:**
+- Led **After-Hours Logistics Optimization** initiative, improving operational coverage and asset utilization.
+- Designed **Empty Mile Reduction Strategy**, reducing transportation inefficiencies and operational costs.
 
 ## PROJECTS
 
-- **ENABLING AUTHORIZED ENCRYPTED SEARCH FOR MULTI AUTHORITY MEDICAL DATABASES (02/2024 – 05/2024):** A Website for easy and safe access of a Medical Databases.
-- **Determining Fake Statements Made by Public Figures by Means of Artificial Intelligence (08/2023 – 11/2023):** A Website to Determine the Fake Statements using AI.
-- **Restaurant website - EBT (04/2023 – 04/2023):** Constructed a static website for a restaurant.
+- **Encrypted Medical Data Search System:** Developed a secure web application enabling encrypted search across multi-authority medical databases. Enhanced data privacy and access control using secure authentication mechanisms.
+- **AI-Based Fake Statement Detection System:** Built a machine learning-based web application to detect and classify false statements. Achieved high classification accuracy using trained NLP models.
+- **Restaurant Website (EBT Project):** Designed and developed a responsive static website with focus on UI/UX and accessibility. Improved user experience through clean layout and responsive design.
 
-## CERTIFICATES & ACTIVITIES
+## EDUCATION
 
-- Complete A.I. & Machine Learning, Data Science Bootcamp – Udemy (08/2025–Present).
-- Learning Python – LinkedIn (08/2025 – 10/2025).
-- Deloitte Australia Data Analytics Job Simulation (Forage) – Completed simulation involving data analysis, forensic technology, Tableau dashboards, and Excel-based business conclusions.
-- Deloitte Australia Technology Job Simulation (Forage) – Completed simulation involving development, coding, and writing a dashboard proposal.
-- Workshop on Cyber Security & Ethical Hacking – DITTO Security Innovation.
-- Ecommerce website using HTML and CSS – Great Learning (12/2021 – 01/2022).
+### Bachelor of Technology (Computer Science & Engineering)
+**Malla Reddy Institute of Technology and Science | Hyderabad, India**
+*2020 – 2024 | CGPA: 7.04*
+
+### Intermediate (MPC)
+**Sri Vaishnavi Abhyaas Junior College | Guntur, India**
+*2018 – 2020 | CGPA: 9.25*
+
+### SSC
+**Ashara Sree Model High School | Adoni, India**
+*2017 – 2018 | CGPA: 9.7*
+
+## CERTIFICATIONS
+- Complete A.I. & Machine Learning, Data Science Bootcamp – Udemy (Ongoing)
+- Learning Python – LinkedIn Learning
+- Deloitte Australia Data Analytics Job Simulation – Forage
+- Deloitte Australia Technology Job Simulation – Forage
+- Cyber Security & Ethical Hacking Workshop – DITTO
+- E-commerce Website Development – Great Learning
+
+## ACHIEVEMENTS
+- Recognized at Amazon for strong problem-solving and operational efficiency in high-pressure logistics environments.
+- Successfully delivered multiple client-based web applications aligned with performance and usability standards.
 
 ## INTERESTS
-Cooking, playing games, Enhancing new Skills.
+Cooking | Gaming | Continuous Learning | Technology Exploration

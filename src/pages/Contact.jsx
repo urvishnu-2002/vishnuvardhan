@@ -1,95 +1,113 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Linkedin, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, Linkedin, MapPin, Send, MessageSquare, Globe, ChevronRight } from 'lucide-react';
 import Magnetic from '../components/Magnetic';
 
 const Contact = () => {
     return (
-        <section className="relative pt-32 pb-40 px-6 md:px-12 min-h-screen bg-[var(--color-cyber-slate-900)] overflow-hidden">
-            <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+        <section className="relative pt-32 pb-40 px-6 md:px-12 min-h-screen bg-[var(--color-cyber-slate-950)] overflow-hidden">
+            {/* Background Decorative Elements */}
+            <div className="absolute top-1/4 left-1/4 w-[40vw] h-[40vw] bg-[var(--color-cyber-emerald)] opacity-[0.02] blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] bg-blue-500 opacity-[0.02] blur-[100px] pointer-events-none" />
 
+            <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="mb-12 text-center"
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="mb-16 text-center"
                 >
-                    <h1 className="text-4xl md:text-6xl font-black text-[var(--color-cyber-text-main)] tracking-tight mb-4">
+                    <div className="status-badge w-fit mx-auto mb-6">
+                        <div className="status-dot"></div>
+                        Signal Established: Ready for Inquiries
+                    </div>
+                    <h1 className="text-4xl md:text-8xl font-black text-white tracking-tighter mb-6 uppercase">
                         Let's <span className="text-gradient-emerald">Connect</span>
                     </h1>
-                    <p className="text-[var(--color-cyber-text-muted)] text-lg max-w-xl mx-auto leading-relaxed">
-                        Looking for a developer who understands both complex full-stack codebase architecture and real-world supply chain logistics? Let's build something scalable.
+                    <p className="text-[var(--color-cyber-text-muted)] text-xl max-w-2xl mx-auto leading-relaxed font-medium">
+                        Looking for a senior developer to architect your next high-performance system? Let's discuss your objectives and build something exceptional.
                     </p>
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ type: "spring", stiffness: 300, damping: 24, delay: 0.2 }}
-                    className="cyber-card w-full max-w-2xl bg-[var(--color-cyber-slate-800)] border-[var(--color-cyber-slate-700)] shadow-[0_10px_40px_rgba(0,0,0,0.5)] p-8 md:p-12 relative overflow-hidden group hover:border-[var(--color-cyber-emerald)] transition-colors"
-                >
-                    <div className="absolute -top-32 -right-32 w-64 h-64 bg-[var(--color-cyber-emerald)] opacity-[0.03] rounded-full blur-[80px] group-hover:opacity-10 transition-opacity pointer-events-none"></div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+                    {/* Left: Contact Info */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="cyber-card p-10 md:p-16 flex flex-col gap-10 justify-center"
+                    >
+                        <div className="space-y-12">
+                            {[
+                                { icon: Mail, label: "Secure Email", v: "i.m.vishnuvardhan2002@gmail.com", href: "mailto:i.m.vishnuvardhan2002@gmail.com" },
+                                { icon: Phone, label: "Direct Line", v: "+91 7093262941", href: "tel:+917093262941" },
+                                { icon: MapPin, label: "HQ Location", v: "Hyderabad, India", href: null }
+                            ].map((item, i) => (
+                                <div key={item.label} className="flex items-center gap-6 group/item">
+                                    <div className="w-16 h-16 rounded-2xl cyber-glass border border-[var(--color-cyber-slate-700)] group-hover/item:border-[var(--color-cyber-emerald)] group-hover/item:shadow-[0_0_20px_var(--color-cyber-emerald-glow)] transition-all flex items-center justify-center flex-shrink-0">
+                                        <item.icon className="text-[var(--color-cyber-emerald)]" size={28} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-[10px] font-mono text-[var(--color-cyber-text-muted)] uppercase tracking-[0.2em] mb-1 font-black">{item.label}</h4>
+                                        {item.href ? (
+                                            <a href={item.href} className="text-xl md:text-2xl font-black text-white hover:text-[var(--color-cyber-emerald)] transition-colors break-all">
+                                                {item.v}
+                                            </a>
+                                        ) : (
+                                            <p className="text-xl md:text-2xl font-black text-white">{item.v}</p>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
 
-                    <div className="flex flex-col gap-8 relative z-10">
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 group/item">
-                            <div className="w-14 h-14 rounded-full cyber-glass flex items-center justify-center border border-[var(--color-cyber-slate-700)] group-hover/item:border-[var(--color-cyber-emerald)] group-hover/item:shadow-[0_0_15px_var(--color-cyber-emerald-glow)] transition-all flex-shrink-0">
-                                <Mail className="text-[var(--color-cyber-emerald)]" size={24} />
-                            </div>
-                            <div>
-                                <h4 className="text-[10px] font-mono text-[var(--color-cyber-text-muted)] uppercase tracking-widest mb-1">Email</h4>
-                                <a href="mailto:i.m.vishnuvardhan2002@gmail.com" className="text-sm sm:text-lg md:text-xl font-bold text-white hover:text-[var(--color-cyber-emerald)] transition-colors break-all">
-                                    i.m.vishnuvardhan2002@gmail.com
+                    {/* Right: CTA / Socials */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="cyber-card p-10 md:p-16 bg-gradient-to-br from-[var(--color-cyber-emerald)]/5 to-transparent flex flex-col items-center justify-center text-center"
+                    >
+                        <MessageSquare size={60} className="text-[var(--color-cyber-emerald)] mb-8 opacity-20" />
+                        <h3 className="text-3xl font-black text-white mb-6 uppercase tracking-tight">Available For Freelance</h3>
+                        <p className="text-[var(--color-cyber-text-muted)] mb-10 leading-relaxed font-medium">
+                            I am currently open to high-impact projects and full-stack collaborations. Available for remote work across all time zones.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row flex-wrap gap-4 w-full justify-center">
+                            <Magnetic>
+                                <a href="mailto:i.m.vishnuvardhan2002@gmail.com" className="cyber-btn px-10 py-5 text-sm">
+                                    Send Message <Send size={18} />
                                 </a>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 group/item">
-                            <div className="w-14 h-14 rounded-full cyber-glass flex items-center justify-center border border-[var(--color-cyber-slate-700)] group-hover/item:border-[var(--color-cyber-emerald)] group-hover/item:shadow-[0_0_15px_var(--color-cyber-emerald-glow)] transition-all flex-shrink-0">
-                                <Phone className="text-[var(--color-cyber-emerald)]" size={24} />
-                            </div>
-                            <div>
-                                <h4 className="text-[10px] font-mono text-[var(--color-cyber-text-muted)] uppercase tracking-widest mb-1">Phone</h4>
-                                <a href="tel:+917093262941" className="text-lg md:text-xl font-bold text-white hover:text-[var(--color-cyber-emerald)] transition-colors">
-                                    +91 7093262941
+                            </Magnetic>
+                            <Magnetic>
+                                <a href="https://www.linkedin.com/in/urvishnu/" target="_blank" rel="noreferrer" className="cyber-btn cyber-btn-outline px-10 py-5 text-sm">
+                                    LinkedIn <ChevronRight size={18} />
                                 </a>
-                            </div>
+                            </Magnetic>
                         </div>
-
-                        <div className="flex items-center gap-4 sm:gap-6 group/item">
-                            <div className="w-14 h-14 rounded-full cyber-glass flex items-center justify-center border border-[var(--color-cyber-slate-700)] group-hover/item:border-[var(--color-cyber-emerald)] group-hover/item:shadow-[0_0_15px_var(--color-cyber-emerald-glow)] transition-all flex-shrink-0">
-                                <MapPin className="text-[var(--color-cyber-emerald)]" size={24} />
-                            </div>
-                            <div className="flex flex-col">
-                                <h4 className="text-[10px] font-mono text-[var(--color-cyber-text-muted)] uppercase tracking-widest mb-1">Location</h4>
-                                <p className="text-lg md:text-xl font-bold text-white">
-                                    Hyderabad, India
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="mt-12 flex flex-col sm:flex-row gap-4 items-center justify-center border-t border-[var(--color-cyber-slate-700)] pt-8 relative z-10 w-full">
-                        <Magnetic>
-                            <a href="mailto:i.m.vishnuvardhan2002@gmail.com" className="cyber-btn w-full sm:w-auto shadow-[0_0_20px_var(--color-cyber-emerald-glow)]">
-                                <Send size={18} /> Send Mail
-                            </a>
-                        </Magnetic>
-                        <Magnetic>
-                            <a href="https://www.linkedin.com/in/urvishnu/" target="_blank" rel="noreferrer" className="cyber-btn cyber-btn-outline w-full sm:w-auto px-10">
-                                <Linkedin size={18} /> LinkedIn
-                            </a>
-                        </Magnetic>
-                    </div>
-
-                </motion.div>
-
-                <div className="mt-20 text-center relative z-10 px-4">
-                    <p className="text-[10px] sm:text-xs font-mono text-[var(--color-cyber-text-muted)] uppercase tracking-widest mt-4">
-                        © 2026 ITIKYALA MULINTI VISHNUVARDHAN REDDY
-                    </p>
+                    </motion.div>
                 </div>
 
+
+                <a
+                    href="/assets/resume.pdf"
+                    download="Vishnuvardhan_Resume.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="cyber-btn w-fit group shadow-[0_0_20px_var(--color-cyber-emerald-glow)] mt-12"
+                >
+                    DOWNLOAD RESUME <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </a>
+
+                <div className="mt-24 text-center">
+                    <p className="text-[10px] font-mono text-[var(--color-cyber-text-muted)] uppercase tracking-[0.4em] font-black opacity-40">
+                        © 2026 ITIKYALA MULINTI VISHNUVARDHAN REDDY // SYSTEM V3.0
+                    </p>
+                </div>
             </div>
         </section>
     );

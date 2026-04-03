@@ -66,7 +66,7 @@ const Navbar = () => {
             <Link
                 to="/"
                 className={`fixed z-[60] overflow-hidden transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isLogoCentered
-                    ? "top-[32vh] md:top-[35vh] left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[4] md:scale-[5] pointer-events-none h-[52px] md:h-[60px]"
+                    ? "top-[35vh] left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[4] md:scale-[5] pointer-events-none h-[52px] md:h-[60px]"
                     : "top-[17px] md:top-[15px] left-6 md:left-8 translate-x-0 translate-y-0 scale-100 hover:opacity-80 h-[32px] md:h-[38px]"
                     }`}
             >
@@ -91,15 +91,12 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex items-center gap-4 sm:gap-5 justify-end">
-                    <a
-                        href="/assets/resume.pdf"
-                        download="Vishnuvardhan_Resume.pdf"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="cyber-btn inline-flex text-[11px] px-3 py-1.5 sm:text-sm sm:px-6 sm:py-2.5"
+                    <Link
+                        to="/contact"
+                        className="cyber-btn inline-flex text-[10px] px-4 py-2 sm:text-xs sm:px-6 sm:py-2.5 rounded-full shadow-[0_0_15px_var(--color-cyber-emerald-glow)] hover:shadow-[0_0_25px_var(--color-cyber-emerald)] transition-all duration-300 uppercase font-black"
                     >
-                        Resume
-                    </a>
+                        Hire Now
+                    </Link>
                 </div>
             </header>
 

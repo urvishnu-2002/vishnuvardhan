@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
+import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import Hero from './pages/Hero';
 import About from './pages/About';
@@ -8,6 +9,8 @@ import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import Experience from './pages/Experience';
 import CustomCursor from './components/CustomCursor';
+
+const NoiseOverlay = () => <div className="noise-bg" />;
 
 const PageWrapper = ({ children }) => (
     <motion.div
@@ -43,24 +46,45 @@ function App() {
         restDelta: 0.001
     });
 
-    // Hide default cursor globally on large screens for the CustomCursor
     useEffect(() => {
+        // Initialize Lenis for smooth scrolling
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        // Hide default cursor globally on large screens
         if (window.innerWidth >= 1024) {
             document.body.style.cursor = 'none';
         }
+
+        return () => {
+            lenis.destroy();
+        };
     }, []);
 
     return (
         <Router>
-            <div className="min-h-screen bg-[var(--color-cyber-slate-900)] text-[var(--color-cyber-text-main)] transition-colors duration-300 relative overflow-hidden">
-                {/* Global Scrolling Progress */}
+            <div className="min-h-screen bg-[var(--color-cyber-slate-950)] text-[var(--color-cyber-text-main)] transition-colors duration-300 relative overflow-hidden">
+                <NoiseOverlay />
+                
+                {/* Global Scrolling Progress Bar */}
                 <motion.div
-                    className="fixed top-0 left-0 right-0 h-1 bg-[var(--color-cyber-emerald)] origin-left z-[100] shadow-[0_0_15px_var(--color-cyber-emerald-glow)]"
+                    className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--color-cyber-emerald)] to-[var(--color-cyber-emerald-bright)] origin-left z-[100] shadow-[0_0_15px_var(--color-cyber-emerald-glow)]"
                     style={{ scaleX }}
                 />
                 
                 {/* Global Grid Noise Pattern */}
-                <div className="fixed inset-0 pointer-events-none bg-grid-pattern opacity-60 z-0"></div>
+                <div className="fixed inset-0 pointer-events-none bg-grid-pattern opacity-40 z-0"></div>
 
                 <CustomCursor />
                 
