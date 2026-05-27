@@ -1,0 +1,10 @@
+- [x] Add IDs to sections in `About.jsx`
+- [x] Create detailed sections in `Hero.jsx`
+    - [x] Professional Summary
+    - [x] About Me
+    - [x] Projects
+    - [x] Technical Skills
+    - [x] Professional Experience
+    - [x] Education
+    - [x] Certifications & Interests
+- [x] Verify redirects and layout

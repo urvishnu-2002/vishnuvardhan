@@ -27,7 +27,7 @@ const About = () => {
     ];
 
     return (
-        <section className="min-h-screen pt-32 pb-32 px-6 md:px-12 max-w-6xl mx-auto overflow-hidden">
+        <section id="summary" className="min-h-screen pt-32 pb-32 px-6 md:px-12 max-w-6xl mx-auto overflow-hidden">
             {/* Header / Bio Segment */}
             <motion.div 
                 initial={{ opacity: 0, y: 20 }}
@@ -94,6 +94,7 @@ const About = () => {
 
             {/* Section: Academic Roots */}
             <motion.div 
+                id="education"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -143,7 +144,7 @@ const About = () => {
             </motion.div>
 
             {/* Section: Skills Matrix */}
-            <div className="mb-32">
+            <div id="skills" className="mb-32">
                 <h3 className="text-2xl font-black mb-10 text-[var(--color-cyber-text-main)] text-center">Core Proficiencies</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Dev Stack */}
@@ -173,7 +174,7 @@ const About = () => {
             </div>
 
             {/* Section: Certifications */}
-            <div className="mt-16">
+            <div id="certifications" className="mt-16">
                 <h3 className="text-2xl font-black mb-12 text-[var(--color-cyber-text-main)] text-center">Certified Credentials</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {[
@@ -203,7 +204,7 @@ const About = () => {
             </div>
 
             {/* Logistics & Interests Footer */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24">
+            <div id="interests" className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24">
                 <div className="cyber-glass p-8 rounded-3xl border border-[var(--color-cyber-slate-800)] flex flex-col gap-4">
                     <h4 className="text-[10px] text-[var(--color-cyber-emerald)] uppercase tracking-widest font-black">Native Languages</h4>
                     <div className="flex gap-3 flex-wrap">

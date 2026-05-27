@@ -278,27 +278,75 @@ const Hero = () => {
 
                     <div className="flex flex-col gap-12 max-w-5xl mx-auto py-24">
                         <MatrixCard
-                            title="Experience"
-                            icon={Briefcase}
+                            title="Professional Summary"
+                            icon={Terminal}
                             delay={0}
                             items={[
-                                { title: "Priyansh Technologies", desc: "Engineering scalable multi-vendor e-commerce platforms and high-performance corporate solutions using Django." },
-                                { title: "Amazon Operations", desc: "Supply chain data analyst optimizing logistics networks and resolving high-priority escalations via KPI tracking." }
+                                { title: "Full-Stack Expertise", desc: "1+ years experience in Django and modern JS frameworks, specializing in scalable web systems." },
+                                { title: "Data-Driven Approach", desc: "Proven track record in optimizing APIs and leveraging supply chain analytics at Amazon." }
+                            ]}
+                            link="/about#summary"
+                            linkText="Read Full Bio"
+                        />
+
+                        <MatrixCard
+                            title="Professional Experience"
+                            icon={Briefcase}
+                            delay={0.1}
+                            items={[
+                                { title: "Priyansh Technologies", desc: "Engineering multi-vendor e-commerce platforms and high-performance backend architectures." },
+                                { title: "Amazon ROC Specialist", desc: "Supply chain data analysis and logistics optimization resolving high-priority escalations." }
                             ]}
                             link="/experience"
-                            linkText="View Full Log"
+                            linkText="View Deployment Log"
                         />
 
                         <MatrixCard
                             title="Technical Core"
                             icon={Zap}
-                            delay={0.15}
+                            delay={0.2}
                             items={[
-                                { title: "Full-Stack Web", desc: "Expertise in Python/Django backends and React/JavaScript frontends for high-performance systems." },
-                                { title: "Data Intelligence", desc: "Optimization of internal workflows and API integration delivering data-driven business objectives." }
+                                { title: "Development Stack", desc: "Python (Django/Flask), JavaScript (React.js), REST APIs, SQL/MySQL." },
+                                { title: "Core Competencies", desc: "Performance Optimization, Data Analysis, API Integration, Responsive UI/UX." }
                             ]}
-                            link="/about"
-                            linkText="Inspect Stack"
+                            link="/about#skills"
+                            linkText="Inspect Full Stack"
+                        />
+
+                        <MatrixCard
+                            title="Project Showcase"
+                            icon={Code}
+                            delay={0.3}
+                            items={[
+                                { title: "ShopSphere Marketplace", desc: "Scalable multi-vendor e-commerce platform with real-time inventory management." },
+                                { title: "Secure Medical Data Search", desc: "Encrypted searching across multi-authority medical databases for data privacy." }
+                            ]}
+                            link="/projects"
+                            linkText="Explore Repository"
+                        />
+
+                        <MatrixCard
+                            title="Academic Roots"
+                            icon={GraduationCap}
+                            delay={0.4}
+                            items={[
+                                { title: "B.Tech (CSE)", desc: "Malla Reddy Institute of Technology and Science. CGPA: 7.04 (2020 – 2024)." },
+                                { title: "Intermediate & SSC", desc: "Consistently high academic performance with CGPAs of 9.25 and 9.7." }
+                            ]}
+                            link="/about#education"
+                            linkText="Verify Credentials"
+                        />
+
+                        <MatrixCard
+                            title="Certifications & Interests"
+                            icon={Sparkles}
+                            delay={0.5}
+                            items={[
+                                { title: "Elite Certifications", desc: "AI & ML Bootcamp, Python Specialization, and Deloitte Data Analytics simulations." },
+                                { title: "Beyond the Code", desc: "Passionate about Cooking, Gaming, and continuous exploration of emerging tech." }
+                            ]}
+                            link="/about#certifications"
+                            linkText="View Achievements"
                         />
                     </div>
                 </div>
