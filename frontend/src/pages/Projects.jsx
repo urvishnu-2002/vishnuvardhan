@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, X, Shield, Brain, Layout, ChevronRight, CheckCircle, Component, FileJson, MonitorIcon, Zap, Search, AlertTriangle, Utensils } from 'lucide-react';
+import { projectService } from '../services/api';
 
-const projectsData = [
+const defaultProjectsData = [
     {
         id: "shopsphere",
         title: "ShopSphere Marketplace",
@@ -151,12 +152,12 @@ const ProjectCard = ({ project, onClick }) => {
                 </p>
 
                 <div className="flex flex-wrap gap-2 mt-auto pb-4">
-                    {project.tech.slice(0, 4).map((t, i) => (
+                    {(project.tech || project.tags || []).slice(0, 4).map((t, i) => (
                         <span key={i} className="px-2 py-1 text-[9px] font-mono font-black rounded-lg bg-[var(--color-cyber-slate-950)] text-[var(--color-cyber-text-muted)] border border-[var(--color-cyber-slate-800)] group-hover:border-[var(--color-cyber-emerald)]/20 transition-colors uppercase tracking-widest">
                             {t}
                         </span>
                     ))}
-                    {project.tech.length > 4 && <span className="text-[9px] font-mono text-[var(--color-cyber-slate-500)] flex items-center">+{project.tech.length - 4} more</span>}
+                    {(project.tech || project.tags || []).length > 4 && <span className="text-[9px] font-mono text-[var(--color-cyber-slate-500)] flex items-center">+{(project.tech || project.tags || []).length - 4} more</span>}
                 </div>
             </div>
 
@@ -168,6 +169,43 @@ const ProjectCard = ({ project, onClick }) => {
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
+    const [projectsData, setProjectsData] = useState(defaultProjectsData);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const loadProjects = async () => {
+            setIsLoading(true);
+            try {
+                // Try to fetch from backend
+                const backendProjects = await projectService.getProjects();
+                if (backendProjects && backendProjects.length > 0) {
+                    // Transform backend projects to match frontend format
+                    const transformedProjects = backendProjects.map(project => ({
+                        ...project,
+                        id: project._id || project.id,
+                        icon: Component, // Default icon
+                        challenges: project.challenges || [],
+                        solutions: project.solutions || [],
+                        tech: project.tags || project.tech || [],
+                        shortDesc: project.shortDescription || project.shortDesc || '',
+                        date: project.createdAt ? new Date(project.createdAt).toLocaleDateString() : 'Recent',
+                    }));
+                    setProjectsData(transformedProjects);
+                } else {
+                    // Use default projects if backend returns empty
+                    setProjectsData(defaultProjectsData);
+                }
+            } catch (error) {
+                console.warn('Failed to load projects from backend, using defaults:', error);
+                // Fallback to default projects
+                setProjectsData(defaultProjectsData);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadProjects();
+    }, []);
 
     return (
         <section className="min-h-screen pt-32 pb-32 px-6 md:px-12 max-w-7xl mx-auto">
@@ -178,7 +216,7 @@ const Projects = () => {
             >
                 <div className="status-badge w-fit mb-6">
                     <div className="status-dot"></div>
-                    Project Repository Verified
+                    Project Repository {isLoading ? 'Loading...' : 'Verified'}
                 </div>
                 <h1 className="text-4xl md:text-7xl font-black text-white mb-6 tracking-tight">
                     Technical <span className="text-gradient-emerald">Showcase</span>
@@ -188,11 +226,17 @@ const Projects = () => {
                 </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {projectsData.map((project, index) => (
-                    <ProjectCard key={project.id} project={project} onClick={setSelectedProject} />
-                ))}
-            </div>
+            {isLoading ? (
+                <div className="flex justify-center items-center min-h-96">
+                    <div className="text-[var(--color-cyber-emerald)] font-mono">Loading projects...</div>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {projectsData.map((project, index) => (
+                        <ProjectCard key={project.id} project={project} onClick={setSelectedProject} />
+                    ))}
+                </div>
+            )}
 
             <AnimatePresence>
                 {selectedProject && (
@@ -244,7 +288,7 @@ const Projects = () => {
                                             <AlertTriangle size={20} className="text-amber-400" /> Architectural Hurdles
                                         </h4>
                                         <ul className="space-y-4">
-                                            {selectedProject.challenges.map((challenge, idx) => (
+                                        {(selectedProject.challenges || []).map((challenge, idx) => (
                                                 <li key={idx} className="flex items-start gap-4 text-sm text-[var(--color-cyber-text-muted)] leading-relaxed font-medium">
                                                     <div className="mt-2 w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0" />
                                                     <span>{challenge}</span>
@@ -258,7 +302,7 @@ const Projects = () => {
                                             <CheckCircle size={20} className="text-[var(--color-cyber-emerald)]" /> Engineered Solutions
                                         </h4>
                                         <ul className="space-y-4">
-                                            {selectedProject.solutions.map((solution, idx) => (
+                                        {(selectedProject.solutions || []).map((solution, idx) => (
                                                 <li key={idx} className="flex items-start gap-4 text-sm text-white leading-relaxed font-bold">
                                                     <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-cyber-emerald)] flex-shrink-0 shadow-[0_0_5px_var(--color-cyber-emerald)]" />
                                                     <span>{solution}</span>
@@ -269,7 +313,7 @@ const Projects = () => {
                                 </div>
 
                                 <div className="pt-10 border-t border-[var(--color-cyber-slate-800)] flex flex-wrap gap-3">
-                                    {selectedProject.tech.map((t, i) => (
+                                {(selectedProject.tech || selectedProject.tags || []).map((t, i) => (
                                         <span key={i} className="px-4 py-2 text-[10px] font-black rounded-xl bg-[var(--color-cyber-slate-950)] text-[var(--color-cyber-emerald)] border border-[var(--color-cyber-slate-800)] uppercase tracking-widest shadow-inner">
                                             {t}
                                         </span>

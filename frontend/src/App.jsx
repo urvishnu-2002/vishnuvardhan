@@ -8,6 +8,7 @@ import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import Experience from './pages/Experience';
+import AdminPanel from './pages/vasudev';
 import CustomCursor from './components/CustomCursor';
 
 const NoiseOverlay = () => <div className="noise-bg" />;
@@ -33,8 +34,21 @@ function AnimatedRoutes() {
                 <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
                 <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
                 <Route path="/experience" element={<PageWrapper><Experience /></PageWrapper>} />
+                <Route path="/vasudev" element={<AdminPanel />} />
             </Routes>
         </AnimatePresence>
+    );
+}
+
+function AppContent() {
+    const location = useLocation();
+    const isAdminPanel = location.pathname.startsWith('/vasudev');
+
+    return (
+        <>
+            {!isAdminPanel && <Navbar />}
+            <AnimatedRoutes />
+        </>
     );
 }
 
@@ -77,7 +91,7 @@ function App() {
             <div className="min-h-screen bg-[var(--color-cyber-slate-950)] text-[var(--color-cyber-text-main)] transition-colors duration-300 relative overflow-hidden">
                 <NoiseOverlay />
                 
-                {/* Global Scrolling Progress Bar */}
+                {/* Global Progress Bar */}
                 <motion.div
                     className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--color-cyber-emerald)] to-[var(--color-cyber-emerald-bright)] origin-left z-[100] shadow-[0_0_15px_var(--color-cyber-emerald-glow)]"
                     style={{ scaleX }}
@@ -89,8 +103,7 @@ function App() {
                 <CustomCursor />
                 
                 <div className="relative z-10 w-full h-full cursor-none min-[1024px]:cursor-none">
-                    <Navbar />
-                    <AnimatedRoutes />
+                    <AppContent />
                 </div>
             </div>
         </Router>
