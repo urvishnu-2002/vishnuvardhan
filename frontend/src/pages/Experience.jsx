@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Activity, Server, TrendingUp, CheckCircle, Component, MonitorIcon, GitBranch, Terminal, ChevronRight } from 'lucide-react';
+import { experienceService } from '../services/api';
 
 const DataPulse = ({ delay = 0 }) => (
     <motion.div
@@ -20,7 +21,7 @@ const Experience = () => {
 
     const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
-    const experienceData = [
+    const defaultExperienceData = [
         {
             company: "Priyansh Technologies",
             location: "Hyderabad, India",
@@ -57,6 +58,49 @@ const Experience = () => {
         }
     ];
 
+    const [experiences, setExperiences] = useState(defaultExperienceData);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const loadExperiences = async () => {
+            setIsLoading(true);
+            try {
+                const backendExp = await experienceService.getExperiences();
+                if (backendExp && backendExp.length > 0) {
+                    const transformed = backendExp.map(exp => {
+                        const achievements = exp.description
+                            ? exp.description.split(/\n+/).map(line => line.trim().replace(/^[-*•]\s*/, '')).filter(Boolean)
+                            : [];
+                        
+                        let Icon = Server;
+                        if (exp.company.toLowerCase().includes('amazon')) {
+                            Icon = Activity;
+                        }
+                        
+                        return {
+                            company: exp.company,
+                            role: exp.role,
+                            location: exp.location || 'Remote',
+                            period: `${exp.startDate} – ${exp.endDate}`,
+                            icon: Icon,
+                            achievements: achievements.length > 0 ? achievements : [exp.description],
+                            tech: exp.tech || []
+                        };
+                    });
+                    setExperiences(transformed);
+                } else {
+                    setExperiences(defaultExperienceData);
+                }
+            } catch (error) {
+                console.warn('Failed to load experiences from backend, using defaults:', error);
+                setExperiences(defaultExperienceData);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadExperiences();
+    }, []);
 
     return (
         <section className="min-h-screen pt-32 pb-32 px-6 md:px-12 max-w-6xl mx-auto" ref={containerRef}>
@@ -68,7 +112,7 @@ const Experience = () => {
             >
                 <div className="status-badge w-fit mb-6">
                     <div className="status-dot"></div>
-                    Professional Deployment Log
+                    Professional Deployment Log {isLoading ? '(Syncing...)' : ''}
                 </div>
                 <h1 className="text-4xl md:text-7xl font-black text-[var(--color-cyber-text-main)] mb-6 tracking-tight">
                     Professional <span className="text-gradient-emerald">Journey</span>
@@ -101,9 +145,9 @@ const Experience = () => {
                 <DataPulse delay={0} />
                 <DataPulse delay={2} />
 
-                {experienceData.map((exp, idx) => (
+                {experiences.map((exp, idx) => (
                     <motion.div 
-                        key={exp.period}
+                        key={exp.period + '-' + idx}
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-100px" }}

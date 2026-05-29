@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Terminal, Database, Server, ChevronRight, Briefcase, Code, GraduationCap, TrendingUp, Activity, MonitorSmartphone, LayoutDashboard, Sparkles, Zap, Cpu, Globe } from 'lucide-react';
+import { projectService, experienceService, educationService, certificationService, settingService } from '../services/api';
+
 
 const BOOT_SEQUENCE = [
     "> INITIALIZING V_PORTFOLIO_OS v3.0",
@@ -165,6 +167,113 @@ const Hero = () => {
         visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
     };
 
+    const [bio, setBio] = useState("Results-driven Full-Stack Web Developer with 1+ years of experience designing and deploying scalable web applications using Django and modern JavaScript frameworks.");
+    const [skillsList, setSkillsList] = useState(['Python', 'JavaScript', 'Django', 'React.js', 'REST APIs', 'MySQL / SQL', 'Data Analysis', 'Performance Tuning']);
+    const [summaryItems, setSummaryItems] = useState([
+        { title: "Full-Stack Expertise", desc: "1+ years experience in Django and modern JS frameworks, specializing in scalable web systems." },
+        { title: "Data-Driven Approach", desc: "Proven track record in optimizing APIs and leveraging supply chain analytics at Amazon." }
+    ]);
+    const [expItems, setExpItems] = useState([
+        { title: "Priyansh Technologies", desc: "Engineering multi-vendor e-commerce platforms and high-performance backend architectures." },
+        { title: "Amazon ROC Specialist", desc: "Supply chain data analysis and logistics optimization resolving high-priority escalations." }
+    ]);
+    const [techItems, setTechItems] = useState([
+        { title: "Development Stack", desc: "Python (Django/Flask), JavaScript (React.js), REST APIs, SQL/MySQL." },
+        { title: "Core Competencies", desc: "Performance Optimization, Data Analysis, API Integration, Responsive UI/UX." }
+    ]);
+    const [projectItems, setProjectItems] = useState([
+        { title: "ShopSphere Marketplace", desc: "High-traffic Django multi-vendor marketplace handling real-time inventory and complex concurrent authentications." },
+        { title: "Secure Medical Data Search", desc: "A secure architecture permitting radically safe access to multi-authority medical databases via encrypted queries." }
+    ]);
+    const [eduItems, setEduItems] = useState([
+        { title: "B.Tech (CSE)", desc: "Malla Reddy Institute of Technology and Science. CGPA: 7.04 (2020 – 2024)." },
+        { title: "Intermediate & SSC", desc: "Consistently high academic performance with CGPAs of 9.25 and 9.7." }
+    ]);
+    const [certItems, setCertItems] = useState([
+        { title: "Elite Certifications", desc: "AI & ML Bootcamp, Python Specialization, and Deloitte Data Analytics simulations." },
+        { title: "Beyond the Code", desc: "Passionate about Cooking, Gaming, and continuous exploration of emerging tech." }
+    ]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const loadHeroData = async () => {
+            setIsLoading(true);
+            try {
+                // Fetch settings
+                const settings = await settingService.getSettings();
+                if (settings) {
+                    if (settings.bio) setBio(settings.bio);
+                    if (settings.technologies && settings.technologies.length > 0) {
+                        setSkillsList(settings.technologies);
+                    }
+                    if (settings.skills && settings.skills.length > 0) {
+                        setTechItems([
+                            { title: "Development Stack", desc: settings.skills.slice(0, 5).join(', ') },
+                            { title: "Core Competencies", desc: settings.technologies ? settings.technologies.slice(0, 5).join(', ') : "Data Analysis" }
+                        ]);
+                    }
+                    if (settings.bio) {
+                        setSummaryItems([
+                            { title: "Profile Summary", desc: settings.bio.slice(0, 100) + '...' },
+                            { title: "Offered Expertise", desc: settings.services ? settings.services.join(', ') : "Full-Stack Development, API Integration" }
+                        ]);
+                    }
+                    if (settings.hobbies && settings.hobbies.length > 0) {
+                        setCertItems(prev => [
+                            prev[0],
+                            { title: "Beyond the Code", desc: `Passionate about ${settings.hobbies.join(', ')}.` }
+                        ]);
+                    }
+                }
+
+                // Fetch experience
+                const experience = await experienceService.getExperiences();
+                if (experience && experience.length > 0) {
+                    const mapped = experience.slice(0, 2).map(e => ({
+                        title: e.company,
+                        desc: `${e.role} (${e.startDate} – ${e.endDate}). ${e.description ? e.description.split('\n')[0] : ''}`
+                    }));
+                    if (mapped.length > 0) setExpItems(mapped);
+                }
+
+                // Fetch projects
+                const projects = await projectService.getProjects();
+                if (projects && projects.length > 0) {
+                    const mapped = projects.slice(0, 2).map(p => ({
+                        title: p.title,
+                        desc: p.shortDescription || p.shortDesc || ''
+                    }));
+                    if (mapped.length > 0) setProjectItems(mapped);
+                }
+
+                // Fetch education
+                const education = await educationService.getEducations();
+                if (education && education.length > 0) {
+                    const mapped = education.slice(0, 2).map(e => ({
+                        title: `${e.degree} (${e.startDate} – ${e.endDate})`,
+                        desc: `${e.institution}. ${e.description ? 'CGPA: ' + e.description : ''}`
+                    }));
+                    if (mapped.length > 0) setEduItems(mapped);
+                }
+
+                // Fetch certifications
+                const certs = await certificationService.getCertifications();
+                if (certs && certs.length > 0) {
+                    setCertItems(prev => [
+                        { title: "Certified Credentials", desc: certs.slice(0, 3).map(c => c.title).join(', ') },
+                        prev[1]
+                    ]);
+                }
+            } catch (error) {
+                console.warn("Failed to retrieve dashboard details from backend:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadHeroData();
+    }, []);
+
     return (
         <section className="relative flex flex-col pt-[58vh] px-6 md:px-12 overflow-hidden bg-[var(--color-cyber-slate-950)] min-h-screen">
             <FloatingNodes />
@@ -173,7 +282,7 @@ const Hero = () => {
                 <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 items-center w-full min-h-[70vh] relative z-20">
                     <motion.div initial="hidden" animate="visible" variants={containerVariants} className="flex flex-col w-full relative z-20">
                         <motion.div variants={itemVariants} className="mb-6">
-                            <Link to="/contact">
+                            <Link to="/contact#freelance">
                                 <motion.div
                                     className="status-badge w-fit mb-8 group/badge"
                                     whileHover={{ scale: 1.05 }}
@@ -209,7 +318,7 @@ const Hero = () => {
                             >
                                 {[...Array(2)].map((_, i) => (
                                     <div key={i} className="flex gap-4 pr-4">
-                                        {['Python', 'JavaScript', 'Django', 'React.js', 'REST APIs', 'MySQL / SQL', 'Data Analysis', 'Performance Tuning'].map((skill, idx) => (
+                                        {skillsList.map((skill, idx) => (
                                             <span key={idx} className="flex items-center gap-2 px-6 py-2.5 rounded-xl cyber-glass text-[11px] font-mono font-black text-[var(--color-cyber-emerald)] border border-[var(--color-cyber-slate-700)] shadow-xl uppercase tracking-[0.2em] whitespace-nowrap group/skill hover:border-[var(--color-cyber-emerald)] transition-colors">
                                                 {skill.includes('Python') ? <Terminal size={14} /> :
                                                     skill.includes('Django') ? <Server size={14} /> :
@@ -228,10 +337,10 @@ const Hero = () => {
 
                         <motion.div variants={itemVariants} className="max-w-xl space-y-6 mb-8">
                             <p className="text-lg md:text-xl text-[var(--color-cyber-text-muted)] leading-relaxed font-medium border-l-2 border-[var(--color-cyber-emerald)]/30 pl-6">
-                                Results-driven <span className="text-white">Full-Stack Web Developer</span> with 1+ years of experience designing and deploying scalable web applications using <span className="text-white">Django</span> and modern JavaScript frameworks.
+                                {bio}
                             </p>
                             <div className="flex flex-wrap gap-4 items-center">
-                                <Link to="/contact" className="cyber-btn w-fit group">
+                                <Link to="/contact#freelance" className="cyber-btn w-fit group">
                                     Start a Project <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                 </Link>
                                 <a
@@ -281,10 +390,7 @@ const Hero = () => {
                             title="Professional Summary"
                             icon={Terminal}
                             delay={0}
-                            items={[
-                                { title: "Full-Stack Expertise", desc: "1+ years experience in Django and modern JS frameworks, specializing in scalable web systems." },
-                                { title: "Data-Driven Approach", desc: "Proven track record in optimizing APIs and leveraging supply chain analytics at Amazon." }
-                            ]}
+                            items={summaryItems}
                             link="/about#summary"
                             linkText="Read Full Bio"
                         />
@@ -293,10 +399,7 @@ const Hero = () => {
                             title="Professional Experience"
                             icon={Briefcase}
                             delay={0.1}
-                            items={[
-                                { title: "Priyansh Technologies", desc: "Engineering multi-vendor e-commerce platforms and high-performance backend architectures." },
-                                { title: "Amazon ROC Specialist", desc: "Supply chain data analysis and logistics optimization resolving high-priority escalations." }
-                            ]}
+                            items={expItems}
                             link="/experience"
                             linkText="View Deployment Log"
                         />
@@ -305,10 +408,7 @@ const Hero = () => {
                             title="Technical Core"
                             icon={Zap}
                             delay={0.2}
-                            items={[
-                                { title: "Development Stack", desc: "Python (Django/Flask), JavaScript (React.js), REST APIs, SQL/MySQL." },
-                                { title: "Core Competencies", desc: "Performance Optimization, Data Analysis, API Integration, Responsive UI/UX." }
-                            ]}
+                            items={techItems}
                             link="/about#skills"
                             linkText="Inspect Full Stack"
                         />
@@ -317,10 +417,7 @@ const Hero = () => {
                             title="Project Showcase"
                             icon={Code}
                             delay={0.3}
-                            items={[
-                                { title: "ShopSphere Marketplace", desc: "Scalable multi-vendor e-commerce platform with real-time inventory management." },
-                                { title: "Secure Medical Data Search", desc: "Encrypted searching across multi-authority medical databases for data privacy." }
-                            ]}
+                            items={projectItems}
                             link="/projects"
                             linkText="Explore Repository"
                         />
@@ -329,10 +426,7 @@ const Hero = () => {
                             title="Academic Roots"
                             icon={GraduationCap}
                             delay={0.4}
-                            items={[
-                                { title: "B.Tech (CSE)", desc: "Malla Reddy Institute of Technology and Science. CGPA: 7.04 (2020 – 2024)." },
-                                { title: "Intermediate & SSC", desc: "Consistently high academic performance with CGPAs of 9.25 and 9.7." }
-                            ]}
+                            items={eduItems}
                             link="/about#education"
                             linkText="Verify Credentials"
                         />
@@ -341,10 +435,7 @@ const Hero = () => {
                             title="Certifications & Interests"
                             icon={Sparkles}
                             delay={0.5}
-                            items={[
-                                { title: "Elite Certifications", desc: "AI & ML Bootcamp, Python Specialization, and Deloitte Data Analytics simulations." },
-                                { title: "Beyond the Code", desc: "Passionate about Cooking, Gaming, and continuous exploration of emerging tech." }
-                            ]}
+                            items={certItems}
                             link="/about#certifications"
                             linkText="View Achievements"
                         />

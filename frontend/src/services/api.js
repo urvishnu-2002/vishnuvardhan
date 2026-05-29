@@ -1,5 +1,6 @@
 // API Service for backend
-const API_BASE_URL = 'http://localhost:5000/api';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5050/api';
+
 
 export const projectService = {
     // Get all published projects
@@ -103,3 +104,76 @@ export const authService = {
         }
     },
 };
+
+export const experienceService = {
+    async getExperiences() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/experience`);
+            const data = await response.json();
+            if (data.success) {
+                return data.data;
+            } else {
+                console.error('Error fetching experiences:', data.message);
+                return [];
+            }
+        } catch (error) {
+            console.error('Error fetching experiences:', error);
+            return [];
+        }
+    }
+};
+
+export const educationService = {
+    async getEducations() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/education`);
+            const data = await response.json();
+            if (data.success) {
+                return data.data;
+            } else {
+                console.error('Error fetching educations:', data.message);
+                return [];
+            }
+        } catch (error) {
+            console.error('Error fetching educations:', error);
+            return [];
+        }
+    }
+};
+
+export const certificationService = {
+    async getCertifications() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/certifications`);
+            const data = await response.json();
+            if (data.success) {
+                return data.data;
+            } else {
+                console.error('Error fetching certifications:', data.message);
+                return [];
+            }
+        } catch (error) {
+            console.error('Error fetching certifications:', error);
+            return [];
+        }
+    }
+};
+
+export const settingService = {
+    async getSettings() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/settings`);
+            const data = await response.json();
+            if (data.success) {
+                return data.data;
+            } else {
+                console.error('Error fetching settings:', data.message);
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching settings:', error);
+            return null;
+        }
+    }
+};
+

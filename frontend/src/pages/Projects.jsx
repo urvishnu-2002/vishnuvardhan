@@ -13,6 +13,8 @@ const defaultProjectsData = [
         shortDesc: "High-traffic Django multi-vendor marketplace handling real-time inventory and complex concurrent authentications.",
         tech: ["Django", "Python", "React", "REST API", "PostgreSQL"],
         date: "Priyansh Technologies",
+        github: "https://github.com/urvishnu-2002/shopsphere",
+        link: "https://shopsphere-demo.example.com",
         challenges: [
             "Coordinating data consistency over highly concurrent vendor database read/writes.",
             "Guaranteeing near-zero latency for global inventory status checks."
@@ -30,6 +32,8 @@ const defaultProjectsData = [
         shortDesc: "A secure architecture permitting radically safe access to multi-authority medical databases via encrypted queries.",
         tech: ["Python", "Cryptography", "Security Protocols", "MySQL"],
         date: "Feb 2024 – May 2024",
+        github: "https://github.com/urvishnu-2002/medical-search",
+        link: "https://medical-demo.example.com",
         challenges: [
             "Ensuring absolute data privacy across independent medical authorities.",
             "Implementing authorized encryption without sacrificing deep search performance."
@@ -47,6 +51,8 @@ const defaultProjectsData = [
         shortDesc: "Algorithmic platform determining fake statements by public figures utilizing NLP and historical AI models.",
         tech: ["Python", "Machine Learning", "NLP", "AI Modeling"],
         date: "Aug 2023 – Nov 2023",
+        github: "https://github.com/urvishnu-2002/fake-statement-detector",
+        link: "https://fake-detector-demo.example.com",
         challenges: [
             "Processing unpredictable natural language structures and dialects effectively.",
             "Tuning models on highly opinionated and fragmented political datasets."
@@ -65,6 +71,8 @@ const defaultProjectsData = [
         shortDesc: "Automated XML parsing architecture securely mapping legacy supplier data to modern web clients.",
         tech: ["Python", "XML Parsing", "REST API", "Automation"],
         date: "Priyansh Technologies",
+        github: "https://github.com/urvishnu-2002/smart-xml",
+        link: "https://smartxml-demo.example.com",
         challenges: [
             "Parsing unpredictable XML formats from legacy corporate providers.",
             "Structuring millions of data points continuously with tight memory constraints."
@@ -83,6 +91,8 @@ const defaultProjectsData = [
         shortDesc: "Professional service-oriented platform built with native components for absolute responsiveness and SEO.",
         tech: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
         date: "Priyansh Technologies",
+        github: "https://github.com/urvishnu-2002/hpe-it-solutions",
+        link: "https://hpe-demo.example.com",
         challenges: [
             "Translating complex corporate requirements into simple front-end features.",
             "Guaranteeing 100% responsiveness across all mobile views."
@@ -100,6 +110,8 @@ const defaultProjectsData = [
         shortDesc: "Highly responsive aesthetic platform for fluid food visualization and customer interaction.",
         tech: ["HTML5", "CSS3", "JavaScript", "UI UX"],
         date: "Apr 2023",
+        github: "https://github.com/urvishnu-2002/restaurant-ebt",
+        link: "https://restaurant-demo.example.com",
         challenges: [
             "Designing intuitive UI targeting fluid food visualization.",
             "Ensuring immediate cross-browser compatibility across mobile viewpoints."
@@ -141,15 +153,32 @@ const ProjectCard = ({ project, onClick }) => {
                 <div className="absolute top-4 left-4 z-10">
                     <span className="text-[10px] font-mono font-black text-[var(--color-cyber-emerald)] uppercase tracking-widest px-3 py-1 bg-black/80 backdrop-blur-md border border-[var(--color-cyber-emerald)]/30 rounded-full">{project.category}</span>
                 </div>
+                <div className="absolute top-4 right-4 z-10 flex gap-2">
+                    {project.github && project.github !== '#' && (
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-2 rounded-lg bg-black/80 backdrop-blur-md border border-slate-800 text-white hover:text-[var(--color-cyber-emerald)] hover:border-[var(--color-cyber-emerald)]/50 transition-all cursor-none" title="GitHub Repository">
+                            <Github size={14} />
+                        </a>
+                    )}
+                    {project.link && project.link !== '#' && (
+                        <a href={project.link} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-2 rounded-lg bg-[var(--color-cyber-emerald)]/80 backdrop-blur-md text-black hover:bg-[var(--color-cyber-emerald)] transition-all cursor-none" title="Live Demo">
+                            <ExternalLink size={14} />
+                        </a>
+                    )}
+                </div>
             </div>
 
             <div className="flex flex-col flex-grow px-2">
                 <h3 className="text-2xl font-black text-white mb-2 group-hover:text-[var(--color-cyber-emerald)] transition-colors tracking-tight uppercase">{project.title}</h3>
-                <p className="text-[11px] text-[var(--color-cyber-slate-500)] mb-4 font-mono font-bold tracking-widest">{project.date}</p>
+                <p className="text-[11px] text-[var(--color-cyber-slate-500)] mb-4 font-mono font-bold tracking-widest">{project.company ? `${project.company} • ` : ''}{project.date}</p>
                 
-                <p className="text-sm text-[var(--color-cyber-text-muted)] leading-relaxed mb-6 line-clamp-3 font-medium">
+                <p className="text-sm text-[var(--color-cyber-text-muted)] leading-relaxed mb-4 line-clamp-3 font-medium">
                     {project.shortDesc}
                 </p>
+                {project.link && project.link !== '#' && (
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-[11px] font-mono text-[var(--color-cyber-emerald)] hover:underline mb-4 flex items-center gap-1.5 w-fit cursor-none">
+                        <ExternalLink size={12} /> {project.link.replace(/^https?:\/\/(www\.)?/, '')}
+                    </a>
+                )}
 
                 <div className="flex flex-wrap gap-2 mt-auto pb-4">
                     {(project.tech || project.tags || []).slice(0, 4).map((t, i) => (
@@ -188,7 +217,8 @@ const Projects = () => {
                         solutions: project.solutions || [],
                         tech: project.tags || project.tech || [],
                         shortDesc: project.shortDescription || project.shortDesc || '',
-                        date: project.createdAt ? new Date(project.createdAt).toLocaleDateString() : 'Recent',
+                        company: project.company || '',
+                        date: project.date || (project.createdAt ? new Date(project.createdAt).toLocaleDateString() : 'Recent'),
                     }));
                     setProjectsData(transformedProjects);
                 } else {
@@ -275,7 +305,7 @@ const Projects = () => {
                                         {selectedProject.category}
                                     </span>
                                     <h2 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter uppercase">{selectedProject.title}</h2>
-                                    <p className="text-[var(--color-cyber-emerald)] font-mono text-[11px] mb-8 uppercase tracking-[0.2em] font-black">{selectedProject.date}</p>
+                                    <p className="text-[var(--color-cyber-emerald)] font-mono text-[11px] mb-8 uppercase tracking-[0.2em] font-black">{selectedProject.company ? `${selectedProject.company} • ` : ''}{selectedProject.date}</p>
 
                                     <p className="text-xl md:text-2xl text-[var(--color-cyber-text-muted)] leading-relaxed font-medium border-l-4 border-[var(--color-cyber-emerald)] pl-8 py-2">
                                         {selectedProject.shortDesc}
@@ -312,12 +342,26 @@ const Projects = () => {
                                     </div>
                                 </div>
 
-                                <div className="pt-10 border-t border-[var(--color-cyber-slate-800)] flex flex-wrap gap-3">
-                                {(selectedProject.tech || selectedProject.tags || []).map((t, i) => (
-                                        <span key={i} className="px-4 py-2 text-[10px] font-black rounded-xl bg-[var(--color-cyber-slate-950)] text-[var(--color-cyber-emerald)] border border-[var(--color-cyber-slate-800)] uppercase tracking-widest shadow-inner">
-                                            {t}
-                                        </span>
-                                    ))}
+                                <div className="pt-10 border-t border-[var(--color-cyber-slate-800)] flex flex-wrap items-center justify-between gap-6">
+                                    <div className="flex flex-wrap gap-3">
+                                        {(selectedProject.tech || selectedProject.tags || []).map((t, i) => (
+                                            <span key={i} className="px-4 py-2 text-[10px] font-black rounded-xl bg-[var(--color-cyber-slate-950)] text-[var(--color-cyber-emerald)] border border-[var(--color-cyber-slate-800)] uppercase tracking-widest shadow-inner">
+                                                {t}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        {selectedProject.github && selectedProject.github !== '#' && (
+                                            <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--color-cyber-slate-950)] text-white hover:text-[var(--color-cyber-emerald)] border border-slate-800 hover:border-[var(--color-cyber-emerald)]/30 transition-all font-mono text-xs uppercase tracking-wider">
+                                                <Github size={14} /> Repository
+                                            </a>
+                                        )}
+                                        {selectedProject.link && selectedProject.link !== '#' && (
+                                            <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--color-cyber-emerald)] text-black hover:bg-emerald-400 transition-all font-mono font-bold text-xs uppercase tracking-wider">
+                                                <ExternalLink size={14} /> Live Demo
+                                            </a>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>

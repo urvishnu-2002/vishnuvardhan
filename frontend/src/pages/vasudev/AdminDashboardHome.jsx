@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAdmin } from './AdminContext';
 import { Shield, Activity, Database, Server, Globe, Users, Briefcase, GraduationCap, Building, Award, Layers, MessageSquare } from 'lucide-react';
+import { API_BASE_URL } from '../../services/api';
 
 const AdminDashboardHome = () => {
     const { admin, token } = useAdmin();
@@ -22,12 +23,12 @@ const AdminDashboardHome = () => {
                 
                 // Fetch data lengths from all endpoints simultaneously
                 const [projRes, expRes, eduRes, certRes, settingsRes, msgRes] = await Promise.allSettled([
-                    fetch('http://localhost:5000/api/projects/admin/all', { headers }),
-                    fetch('http://localhost:5000/api/experience', { headers }),
-                    fetch('http://localhost:5000/api/education', { headers }),
-                    fetch('http://localhost:5000/api/certifications', { headers }),
-                    fetch('http://localhost:5000/api/settings', { headers }),
-                    fetch('http://localhost:5000/api/messages', { headers })
+                    fetch(`${API_BASE_URL}/projects/admin/all`, { headers }),
+                    fetch(`${API_BASE_URL}/experience`, { headers }),
+                    fetch(`${API_BASE_URL}/education`, { headers }),
+                    fetch(`${API_BASE_URL}/certifications`, { headers }),
+                    fetch(`${API_BASE_URL}/settings`, { headers }),
+                    fetch(`${API_BASE_URL}/messages`, { headers })
                 ]);
 
                 const getCount = async (res) => {

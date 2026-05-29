@@ -1,13 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, Linkedin, MapPin, Send, MessageSquare, Globe, ChevronRight, X, User, CheckCircle, AlertTriangle } from 'lucide-react';
 import Magnetic from '../components/Magnetic';
+import { API_BASE_URL } from '../services/api';
 
 const Contact = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ type: '', text: '' });
+    const location = useLocation();
+
+    const handleOpenForm = (e) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        setIsFormOpen(true);
+    };
+
+    useEffect(() => {
+        if (isFormOpen) {
+            document.body.classList.add('modal-open');
+        } else {
+            document.body.classList.remove('modal-open');
+        }
+        return () => {
+            document.body.classList.remove('modal-open');
+        };
+    }, [isFormOpen]);
+
+    useEffect(() => {
+        if (location.hash === '#freelance') {
+            setTimeout(() => {
+                const element = document.getElementById('freelance');
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                setIsFormOpen(true);
+            }, 180);
+        }
+    }, [location.hash]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -20,13 +55,13 @@ const Contact = () => {
         setSubmitStatus({ type: '', text: '' });
 
         try {
-            const response = await fetch('http://localhost:5000/api/messages', {
+            const response = await fetch(`${API_BASE_URL}/messages`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
             });
             const data = await response.json();
-            
+
             if (data.success) {
                 setSubmitStatus({ type: 'success', text: 'Transmission successful. I will respond shortly.' });
                 setFormData({ name: '', email: '', message: '' });
@@ -105,6 +140,7 @@ const Contact = () => {
 
                     {/* Right: CTA / Socials */}
                     <motion.div
+                        id="freelance"
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -118,7 +154,7 @@ const Contact = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row flex-wrap gap-4 w-full justify-center relative z-20">
-                            <button onClick={() => setIsFormOpen(true)} type="button" className="cyber-btn px-10 py-5 text-sm cursor-pointer relative z-20">
+                            <button onClick={handleOpenForm} type="button" className="cyber-btn px-10 py-5 text-sm cursor-pointer relative z-20">
                                 Send Message <Send size={18} />
                             </button>
                             <Magnetic>
@@ -147,66 +183,110 @@ const Contact = () => {
                     </p>
                 </div>
 
-                {/* Message Modal Overlay */}
+                {/* Message Modal Overlay - Standard Inline Rendering */}
                 <AnimatePresence>
                     {isFormOpen && (
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md"
+                            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md font-mono"
                             onClick={() => !isSubmitting && setIsFormOpen(false)}
                         >
                             <motion.div
-                                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                                initial={{ scale: 0.95, opacity: 0, y: 30 }}
                                 animate={{ scale: 1, opacity: 1, y: 0 }}
                                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                                transition={{ type: "spring", damping: 25, stiffness: 250 }}
                                 onClick={(e) => e.stopPropagation()}
-                                className="relative w-full max-w-2xl bg-[#0f172a] rounded-2xl border border-[var(--color-cyber-slate-800)] shadow-[0_0_50px_rgba(16,185,129,0.15)] overflow-hidden"
+                                className="relative w-full max-w-2xl bg-[rgba(15,23,42,0.95)] rounded-2xl border border-[rgba(16,185,129,0.3)] shadow-[0_0_50px_rgba(16,185,129,0.25)] overflow-hidden"
                             >
-                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-cyber-emerald)] to-transparent" />
-                                <div className="p-8 md:p-10">
-                                    <div className="flex justify-between items-start mb-8">
-                                        <div>
-                                            <h2 className="text-2xl font-black text-white uppercase tracking-widest flex items-center gap-3">
-                                                <MessageSquare size={24} className="text-[var(--color-cyber-emerald)]"/> Direct Transmission
-                                            </h2>
-                                            <p className="text-slate-400 mt-2 font-mono text-sm">Send a secure message directly to my inbox.</p>
-                                        </div>
-                                        <button onClick={() => !isSubmitting && setIsFormOpen(false)} className="p-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
-                                            <X size={20} />
-                                        </button>
+                                {/* Grid texture inside modal */}
+                                <div className="absolute inset-0 pointer-events-none bg-grid-pattern opacity-[0.08] z-0"></div>
+
+                                {/* Top Laser Accent Line */}
+                                <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[var(--color-cyber-emerald-bright)] to-transparent z-10" />
+
+                                <div className="relative p-8 md:p-10 z-10">
+                                    {/* Close Button */}
+                                    <button
+                                        onClick={() => !isSubmitting && setIsFormOpen(false)}
+                                        className="absolute top-6 right-6 p-2 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] text-slate-400 hover:text-[var(--color-cyber-emerald)] hover:border-[var(--color-cyber-emerald)] transition-all hover:scale-105"
+                                        aria-label="Close Modal"
+                                    >
+                                        <X size={18} />
+                                    </button>
+
+                                    {/* Modal Header */}
+                                    <div className="mb-8 border-b border-[rgba(255,255,255,0.05)] pb-5">
+                                        <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-widest flex items-center gap-3">
+                                            <MessageSquare size={22} className="text-[var(--color-cyber-emerald)] animate-pulse" />
+                                            <span>DIRECT_TRANSMISSION</span>
+                                        </h2>
+                                        <p className="text-[var(--color-cyber-text-muted)] mt-1.5 text-xs">ESTABLISHING SECURE CONNECTION CORE...</p>
                                     </div>
 
                                     {submitStatus.text && (
-                                        <div className={`mb-6 p-4 rounded-xl flex items-center gap-3 font-mono text-sm shadow-lg border ${submitStatus.type === 'success' ? 'bg-[var(--color-cyber-emerald)]/10 border-[var(--color-cyber-emerald)]/50 text-[var(--color-cyber-emerald)]' : 'bg-red-500/10 border-red-500/50 text-red-400'}`}>
-                                            {submitStatus.type === 'success' ? <CheckCircle size={18} /> : <AlertTriangle size={18} />}
-                                            {submitStatus.text}
+                                        <div className={`mb-6 p-4 rounded-xl flex items-center gap-3 text-xs shadow-lg border ${submitStatus.type === 'success' ? 'bg-[var(--color-cyber-emerald)]/10 border-[var(--color-cyber-emerald)]/50 text-[var(--color-cyber-emerald)]' : 'bg-red-500/10 border-red-500/50 text-red-400'}`}>
+                                            {submitStatus.type === 'success' ? <CheckCircle size={16} /> : <AlertTriangle size={16} />}
+                                            <span className="tracking-wider">{submitStatus.text}</span>
                                         </div>
                                     )}
 
+                                    {/* Form */}
                                     <form onSubmit={handleSubmit} className="space-y-6">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <label className="text-xs font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest flex items-center gap-2"><User size={14}/> Name</label>
-                                                <input type="text" name="name" value={formData.name} onChange={handleInputChange} required placeholder="John Doe" className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:border-[var(--color-cyber-emerald)] focus:ring-1 focus:ring-[var(--color-cyber-emerald)] outline-none transition-all font-medium text-sm" />
+                                                <label className="text-[10px] font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest flex items-center gap-1.5">
+                                                    <span>&gt; NAME_ID</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="name"
+                                                    value={formData.name}
+                                                    onChange={handleInputChange}
+                                                    required
+                                                    placeholder="john_doe..."
+                                                    className="w-full bg-[rgba(2,6,23,0.7)] border border-[rgba(255,255,255,0.05)] focus:border-[var(--color-cyber-emerald)] focus:shadow-[0_0_15px_var(--color-cyber-emerald-glow)] rounded-lg px-4 py-3 text-white outline-none transition-all text-xs font-mono"
+                                                />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest flex items-center gap-2"><Mail size={14}/> Email</label>
-                                                <input type="email" name="email" value={formData.email} onChange={handleInputChange} required placeholder="john@example.com" className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:border-[var(--color-cyber-emerald)] focus:ring-1 focus:ring-[var(--color-cyber-emerald)] outline-none transition-all font-medium text-sm" />
+                                                <label className="text-[10px] font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest flex items-center gap-1.5">
+                                                    <span>&gt; EMAIL_COORDS</span>
+                                                </label>
+                                                <input
+                                                    type="email"
+                                                    name="email"
+                                                    value={formData.email}
+                                                    onChange={handleInputChange}
+                                                    required
+                                                    placeholder="john@example.com..."
+                                                    className="w-full bg-[rgba(2,6,23,0.7)] border border-[rgba(255,255,255,0.05)] focus:border-[var(--color-cyber-emerald)] focus:shadow-[0_0_15px_var(--color-cyber-emerald-glow)] rounded-lg px-4 py-3 text-white outline-none transition-all text-xs font-mono"
+                                                />
                                             </div>
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-xs font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest flex items-center gap-2"><MessageSquare size={14}/> Message</label>
-                                            <textarea name="message" value={formData.message} onChange={handleInputChange} required rows="5" placeholder="Project details, inquiries, or just saying hello..." className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:border-[var(--color-cyber-emerald)] focus:ring-1 focus:ring-[var(--color-cyber-emerald)] outline-none transition-all font-medium text-sm resize-y" />
+                                            <label className="text-[10px] font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest flex items-center gap-1.5">
+                                                <span>&gt; PACKET_BODY</span>
+                                            </label>
+                                            <textarea
+                                                name="message"
+                                                value={formData.message}
+                                                onChange={handleInputChange}
+                                                required
+                                                rows="5"
+                                                placeholder="enter message parameters..."
+                                                className="w-full bg-[rgba(2,6,23,0.7)] border border-[rgba(255,255,255,0.05)] focus:border-[var(--color-cyber-emerald)] focus:shadow-[0_0_15px_var(--color-cyber-emerald-glow)] rounded-lg px-4 py-3 text-white outline-none transition-all text-xs font-mono resize-none"
+                                            />
                                         </div>
-                                        <button 
-                                            type="submit" 
-                                            onClick={handleSubmit} 
-                                            disabled={isSubmitting} 
-                                            className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[var(--color-cyber-emerald)] text-black hover:bg-emerald-400 transition-all font-black uppercase tracking-widest text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] cursor-pointer relative z-20"
+
+                                        <button
+                                            type="submit"
+                                            onClick={handleSubmit}
+                                            disabled={isSubmitting}
+                                            className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[var(--color-cyber-emerald)] text-black hover:bg-emerald-400 transition-all font-black uppercase tracking-widest text-xs shadow-[0_0_20px_var(--color-cyber-emerald-glow)] hover:shadow-[0_0_30px_var(--color-cyber-emerald)] cursor-pointer relative z-20"
                                         >
-                                            {isSubmitting ? 'Transmitting...' : <><Send size={18} /> Initialize Transfer</>}
+                                            {isSubmitting ? 'TRANSMITTING...' : <><Send size={14} /> INITIALIZE_TRANSFER</>}
                                         </button>
                                     </form>
                                 </div>

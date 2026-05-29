@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAdmin } from './AdminContext';
 import { Trash2, CheckCircle, AlertTriangle, MessageSquare, X, Mail, Calendar, User } from 'lucide-react';
+import { API_BASE_URL } from '../../services/api';
 
 const MessagesManager = () => {
     const { token } = useAdmin();
@@ -16,7 +17,7 @@ const MessagesManager = () => {
     const fetchMessages = async () => {
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/api/messages', {
+            const response = await fetch(`${API_BASE_URL}/messages`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = await response.json();
@@ -35,7 +36,7 @@ const MessagesManager = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this message?')) {
             try {
-                const response = await fetch(`http://localhost:5000/api/messages/${id}`, {
+                const response = await fetch(`${API_BASE_URL}/messages/${id}`, {
                     method: 'DELETE',
                     headers: { Authorization: `Bearer ${token}` },
                 });

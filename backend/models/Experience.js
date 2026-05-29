@@ -23,6 +23,16 @@ const ExperienceSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    location: {
+        type: String,
+        default: ''
+    },
+    tech: [
+        {
+            type: String,
+            trim: true
+        }
+    ],
     order: {
         type: Number,
         default: 0

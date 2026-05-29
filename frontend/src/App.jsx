@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Hero from './pages/Hero';
 import About from './pages/About';
 import Projects from './pages/Projects';
@@ -40,14 +41,29 @@ function AnimatedRoutes() {
     );
 }
 
+function ScrollToTop() {
+    const { pathname } = useLocation();
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTo(0, 0);
+            document.body.scrollTo(0, 0);
+        }, 80);
+        return () => clearTimeout(timer);
+    }, [pathname]);
+    return null;
+}
+
 function AppContent() {
     const location = useLocation();
     const isAdminPanel = location.pathname.startsWith('/vasudev');
 
     return (
         <>
+            <ScrollToTop />
             {!isAdminPanel && <Navbar />}
             <AnimatedRoutes />
+            {!isAdminPanel && <Footer />}
         </>
     );
 }

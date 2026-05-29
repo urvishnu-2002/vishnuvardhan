@@ -15,6 +15,7 @@ const sanitizeProject = (p) => {
         link: project.link || '',
         image: project.image || '',
         github: project.github || '',
+        company: project.company || '',
         date: project.date || '',
         tags: Array.isArray(project.tags) ? project.tags : [],
         images: Array.isArray(project.images) ? project.images : [],

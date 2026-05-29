@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAdmin } from './AdminContext';
 import { Plus, Edit2, Trash2, X, Save, CheckCircle, AlertTriangle, Award } from 'lucide-react';
+import { API_BASE_URL } from '../../services/api';
 
 const CertificationsManager = () => {
     const { token } = useAdmin();
@@ -25,7 +26,7 @@ const CertificationsManager = () => {
     const fetchCertifications = async () => {
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/api/certifications', {
+            const response = await fetch(`${API_BASE_URL}/certifications`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = await response.json();
@@ -51,8 +52,8 @@ const CertificationsManager = () => {
         setLoading(true);
         try {
             const url = editingId
-                ? `http://localhost:5000/api/certifications/${editingId}`
-                : 'http://localhost:5000/api/certifications';
+                ? `${API_BASE_URL}/certifications/${editingId}`
+                : `${API_BASE_URL}/certifications`;
             const method = editingId ? 'PUT' : 'POST';
 
             const response = await fetch(url, {
@@ -94,7 +95,7 @@ const CertificationsManager = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this certification?')) {
             try {
-                const response = await fetch(`http://localhost:5000/api/certifications/${id}`, {
+                const response = await fetch(`${API_BASE_URL}/certifications/${id}`, {
                     method: 'DELETE',
                     headers: { Authorization: `Bearer ${token}` },
                 });

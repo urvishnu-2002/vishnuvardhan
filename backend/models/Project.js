@@ -37,6 +37,30 @@ const projectSchema = new mongoose.Schema(
             type: String,
             default: null,
         },
+        github: {
+            type: String,
+            default: '',
+        },
+        company: {
+            type: String,
+            default: '',
+        },
+        date: {
+            type: String,
+            default: '',
+        },
+        challenges: [
+            {
+                type: String,
+                trim: true,
+            },
+        ],
+        solutions: [
+            {
+                type: String,
+                trim: true,
+            },
+        ],
         featured: {
             type: Boolean,
             default: false,

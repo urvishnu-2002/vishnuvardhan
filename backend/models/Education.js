@@ -28,6 +28,10 @@ const EducationSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    location: {
+        type: String,
+        default: ''
+    },
     order: {
         type: Number,
         default: 0

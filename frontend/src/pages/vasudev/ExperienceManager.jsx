@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAdmin } from './AdminContext';
 import { Plus, Edit2, Trash2, X, Save, CheckCircle, AlertTriangle, Building } from 'lucide-react';
+import { API_BASE_URL } from '../../services/api';
 
 const ExperienceManager = () => {
     const { token } = useAdmin();
@@ -15,6 +16,8 @@ const ExperienceManager = () => {
         startDate: '',
         endDate: '',
         description: '',
+        location: '',
+        tech: '',
         order: 0,
     });
 
@@ -25,14 +28,13 @@ const ExperienceManager = () => {
     const fetchExperience = async () => {
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/api/experience', {
+            const response = await fetch(`${API_BASE_URL}/experience`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = await response.json();
             if (data.success) {
                 setExperienceList(data.data);
             } else {
-                // Fail silently if endpoint doesn't exist yet, just show empty list
                 console.warn(data.message);
             }
         } catch (err) {
@@ -51,9 +53,11 @@ const ExperienceManager = () => {
         e.preventDefault();
         setLoading(true);
         try {
+            const tech = formData.tech.split(',').map((t) => t.trim()).filter(Boolean);
+            const payload = { ...formData, tech };
             const url = editingId
-                ? `http://localhost:5000/api/experience/${editingId}`
-                : 'http://localhost:5000/api/experience';
+                ? `${API_BASE_URL}/experience/${editingId}`
+                : `${API_BASE_URL}/experience`;
             const method = editingId ? 'PUT' : 'POST';
 
             const response = await fetch(url, {
@@ -62,7 +66,7 @@ const ExperienceManager = () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(payload),
             });
 
             const result = await response.json();
@@ -86,6 +90,8 @@ const ExperienceManager = () => {
             startDate: exp.startDate,
             endDate: exp.endDate,
             description: exp.description,
+            location: exp.location || '',
+            tech: Array.isArray(exp.tech) ? exp.tech.join(', ') : '',
             order: exp.order,
         });
         setEditingId(exp._id);
@@ -95,7 +101,7 @@ const ExperienceManager = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this experience entry?')) {
             try {
-                const response = await fetch(`http://localhost:5000/api/experience/${id}`, {
+                const response = await fetch(`${API_BASE_URL}/experience/${id}`, {
                     method: 'DELETE',
                     headers: { Authorization: `Bearer ${token}` },
                 });
@@ -114,7 +120,7 @@ const ExperienceManager = () => {
     const handleCancel = () => {
         setShowForm(false);
         setEditingId(null);
-        setFormData({ company: '', role: '', startDate: '', endDate: '', description: '', order: 0 });
+        setFormData({ company: '', role: '', startDate: '', endDate: '', description: '', location: '', tech: '', order: 0 });
     };
 
     return (
@@ -162,6 +168,14 @@ const ExperienceManager = () => {
                             <div className="space-y-2">
                                 <label className="text-xs font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest">End Date *</label>
                                 <input type="text" name="endDate" placeholder="e.g., Present" value={formData.endDate} onChange={handleInputChange} required className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:border-[var(--color-cyber-emerald)] outline-none" />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest">Location</label>
+                                <input type="text" name="location" placeholder="e.g., Hyderabad, India" value={formData.location} onChange={handleInputChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:border-[var(--color-cyber-emerald)] outline-none" />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest">Technologies (comma separated)</label>
+                                <input type="text" name="tech" placeholder="e.g., React, Django, Python" value={formData.tech} onChange={handleInputChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:border-[var(--color-cyber-emerald)] outline-none" />
                             </div>
                             <div className="space-y-2">
                                 <label className="text-xs font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest">Display Order</label>

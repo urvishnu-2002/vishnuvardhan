@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAdmin } from './AdminContext';
 import { Plus, Edit2, Trash2, X, Save, CheckCircle, AlertTriangle, GraduationCap } from 'lucide-react';
+import { API_BASE_URL } from '../../services/api';
 
 const EducationManager = () => {
     const { token } = useAdmin();
@@ -16,6 +17,7 @@ const EducationManager = () => {
         startDate: '',
         endDate: '',
         description: '',
+        location: '',
         order: 0,
     });
 
@@ -26,7 +28,7 @@ const EducationManager = () => {
     const fetchEducation = async () => {
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/api/education', {
+            const response = await fetch(`${API_BASE_URL}/education`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = await response.json();
@@ -52,8 +54,8 @@ const EducationManager = () => {
         setLoading(true);
         try {
             const url = editingId
-                ? `http://localhost:5000/api/education/${editingId}`
-                : 'http://localhost:5000/api/education';
+                ? `${API_BASE_URL}/education/${editingId}`
+                : `${API_BASE_URL}/education`;
             const method = editingId ? 'PUT' : 'POST';
 
             const response = await fetch(url, {
@@ -87,6 +89,7 @@ const EducationManager = () => {
             startDate: edu.startDate,
             endDate: edu.endDate,
             description: edu.description,
+            location: edu.location || '',
             order: edu.order,
         });
         setEditingId(edu._id);
@@ -96,7 +99,7 @@ const EducationManager = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this education entry?')) {
             try {
-                const response = await fetch(`http://localhost:5000/api/education/${id}`, {
+                const response = await fetch(`${API_BASE_URL}/education/${id}`, {
                     method: 'DELETE',
                     headers: { Authorization: `Bearer ${token}` },
                 });
@@ -115,7 +118,7 @@ const EducationManager = () => {
     const handleCancel = () => {
         setShowForm(false);
         setEditingId(null);
-        setFormData({ institution: '', degree: '', field: '', startDate: '', endDate: '', description: '', order: 0 });
+        setFormData({ institution: '', degree: '', field: '', startDate: '', endDate: '', description: '', location: '', order: 0 });
     };
 
     return (
@@ -167,6 +170,10 @@ const EducationManager = () => {
                             <div className="space-y-2">
                                 <label className="text-xs font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest">End Date *</label>
                                 <input type="text" name="endDate" placeholder="e.g., May 2023 or Present" value={formData.endDate} onChange={handleInputChange} required className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:border-[var(--color-cyber-emerald)] outline-none" />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest">Location</label>
+                                <input type="text" name="location" placeholder="e.g., Hyderabad, India" value={formData.location} onChange={handleInputChange} className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:border-[var(--color-cyber-emerald)] outline-none" />
                             </div>
                             <div className="space-y-2">
                                 <label className="text-xs font-mono font-bold text-[var(--color-cyber-emerald)] uppercase tracking-widest">Display Order</label>

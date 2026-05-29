@@ -94,6 +94,13 @@ const AdminDashboard = () => {
         }
     }, [isAuthenticated]);
 
+    // Scroll to top when switching views in the admin panel
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTo(0, 0);
+        document.body.scrollTo(0, 0);
+    }, [currentView]);
+
     if (!isAuthenticated && !loginSuccess) {
         return <AdminLogin onLoginSuccess={() => setLoginSuccess(true)} />;
     }

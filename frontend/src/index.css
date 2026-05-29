@@ -99,6 +99,7 @@
         background: radial-gradient(circle at top right, var(--color-cyber-emerald-glow) 0%, transparent 70%);
         opacity: 0;
         transition: opacity 0.4s ease;
+        pointer-events: none;
     }
 
     .cyber-card:hover {
@@ -290,4 +291,9 @@
 
 @keyframes ping {
     75%, 100% { transform: scale(3); opacity: 0; }
+}
+
+/* Hide bottom navigation dock when modal is open to avoid overlaps */
+body.modal-open nav {
+    display: none !important;
 }
