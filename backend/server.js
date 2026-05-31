@@ -34,7 +34,11 @@ app.use('/api/certifications', require('./routes/certifications'));
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/settings', require('./routes/settings'));
 
-// Health check
+// Root and health checks
+app.get('/', (req, res) => {
+    res.status(200).json({ success: true, message: 'Backend server is running' });
+});
+
 app.get('/api/health', (req, res) => {
     res.status(200).json({ success: true, message: 'Backend is running' });
 });
